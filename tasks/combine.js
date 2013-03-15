@@ -140,6 +140,10 @@ module.exports = function (grunt) {
             _.each(tokens, function (token) {
                 if (token.contents !== undefined) {
                     var position = fileContents[inputIndex].search(token.token);
+                    if (position === -1) {
+                        grunt.log.writeln("Token not found, skipping: '" + token.token + "'.");
+            			return;
+        			}
                     var pre = fileContents[inputIndex].substr(0, position);
                     var post = fileContents[inputIndex].substr(position + token.token.length, fileContents[inputIndex].length);
                     fileContents[inputIndex] = pre + token.contents + post;
